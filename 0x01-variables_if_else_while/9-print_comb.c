@@ -10,7 +10,7 @@ int main(void)
 
 	for (i = 0; i <= 9; i++)
 	{
-	putchar(a);
+	putchar(i);
 	if (i != 9)
 	{
 	putchar(',');
