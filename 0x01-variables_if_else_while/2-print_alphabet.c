@@ -7,11 +7,11 @@
 
 int main(void) 
 	{
-		char ch; // Declare a character variable to store the current character
+		char ch;
 		for (ch = 'a'; ch <= 'z'; ch++) 
 		{
-			putchar(ch); // Print the current character
+			putchar(ch);
 		}
-		putchar('\n'); // Print a newline character to end the line
-		return 0;
-}
+		putchar('\n');
+		return (0);
+	}
