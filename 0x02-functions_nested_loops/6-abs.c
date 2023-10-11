@@ -1,19 +1,22 @@
 #include "main.h"
 /**
- * print_sign - check the code
+ * _abs - check the code
  * @n: our ain int
  *
- * Return: 1 if n is greater than zero, 0 if zero, -1 if less than zero
+ * Return: +n if n is greater than zero,-n if less than zero
  */
+int _abs(int n)
+{
+	int a;
 
-int _abs(int n) 
+	if (n < 0)
 	{
-	int n;
-
-	if (n < 0) 
-	{
-	n= n*-1;
+		a = -n;
 	}
-	return (n);
+	else
+	{
+		a = n;
+	}
 
+	return (a);
 }
