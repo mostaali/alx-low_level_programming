@@ -25,5 +25,4 @@ int print_sign(int n)
 		return (a = 0);
 	}
 
-	return (a);
 }
