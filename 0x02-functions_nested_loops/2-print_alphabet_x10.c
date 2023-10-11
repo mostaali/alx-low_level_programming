@@ -1,17 +1,20 @@
 #include "main.h"
 /**
-* _islower - check the code
+* print_alphabet_x10 - check the code
 *
-* Return 1 if c is lowercase
-* Return 0 otherwise
+* Return: Always 0.
 */
-int _islower(int c)
+void print_alphabet_x10(void)
 {
-	if (c > 96 && c < 123)
+	int a;
+	int b;
+
+	for (b = 0; b < 10; b++)
 	{
-	return (1);
-	}else
-	{
-	return (0);
+	for (a = 'a'; a <= 'z'; a++)
+	}
+	_putchar(a);
+	}
+	_putchar('\n');
 	}
 }
