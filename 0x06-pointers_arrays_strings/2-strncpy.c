@@ -1,28 +1,25 @@
 #include "main.h"
 
 /**
- * *_strncat - copies a string
+ * *_strncpy - copies a string
  * @dest: our pointer to char
  * @src: our pointer to char
  * @n: our int
  * Return: pointer to the resulting string dest
  */
-char *_strncat(char *dest, char *src, int n)
+char *_strncpy(char *dest, char *src, int n)
 {
-	char *a = dest;
+	int i;
 
-	while (*dest != '\0')
+	for (i = 0; i < n && src[i] != '\0'; i++)
 	{
-		dest++;
+		dest[i] = src[i];
 	}
-	while (*src != '\0' && n > 0)
+	while (i < n)
 	{
-		*dest = *src;
-		dest++;
-		src++;
-		n--;
+		dest[i] = '\0';
+		i++;
 	}
-	*dest = '\0';
 
-	return (a);
+	return (dest);
 }
