@@ -1,4 +1,4 @@
-#include<main.h>
+#include "main"
 /**
  * *string_toupper - changes all lowercase to uppercase.
  * @str: our pointer to char
