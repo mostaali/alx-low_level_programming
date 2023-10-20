@@ -1,28 +1,28 @@
 #include "main.h"
 
 /**
- * *leet - encodes a string into 1337
- * @str: our pointer to char
+ * *rot13 - encodes a string using rot13
+ * @c: our pointer to char
  * Return: pointer to the result
  */
-char *leet(char *str)
+char *rot13(char *c)
 {
-	char a[] = "43071";
-	char c[] = "aeotl";
-	char d[] = "AEOTL";
-	int b;
-	char *z = str;
+	char a[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	char b[] = "nopqrstuvwxyzabcdefghijklmNOPQRSTUVWXYZABCDEFGHIJKLM";
+	int e;
+	char *z = c;
 
-	while (*str)
+	while (*c)
 	{
-		for (b = 0; b < 5; b++)
+		for (e = 0; e < 52; e++)
 		{
-			if (*str == c[b] || *str == d[b])
+			if (*c == a[e])
 			{
-				*str = a[b];
+				*c = b[e];
+				break;
 			}
 		}
-		str++;
+		c++;
 	}
 
 	return (z);
