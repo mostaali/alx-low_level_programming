@@ -14,7 +14,7 @@ int sqrt_recursive(int n, int guess)
 	if (square == n)
 	return (guess);
 	if (square > n)
-	return -1;
+	return (-1);
 
 	return (sqrt_recursive(n, guess + 1));
 }
@@ -29,7 +29,7 @@ int _sqrt_recursion(int n)
 {
 	if (n < 0)
 	return (-1);
-    
+
 	if (n == 0 || n == 1)
 	return (n);
 
