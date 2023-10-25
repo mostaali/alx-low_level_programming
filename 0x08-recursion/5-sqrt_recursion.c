@@ -1,4 +1,4 @@
-#include "main.h"
+:#include "main.h"
 
 /**
  * sqrt_recursive - Find the natural square root using recursion
@@ -9,14 +9,14 @@
  */
 int sqrt_recursive(int n, int guess)
 {
-    int square = guess * guess;
+	int square = guess * guess;
 
-    if (square == n)
-        return guess;
-    if (square > n)
-        return -1;
+	if (square == n)
+		return guess;
+	if (square > n)
+		return -1;
 
-    return sqrt_recursive(n, guess + 1);
+	return sqrt_recursive(n, guess + 1);
 }
 
 /**
@@ -27,11 +27,11 @@ int sqrt_recursive(int n, int guess)
  */
 int _sqrt_recursion(int n)
 {
-    if (n < 0)
-        return -1;
-    
-    if (n == 0 || n == 1)
-        return n;
+	if (n < 0)
+		return -1;
+		
+	if (n == 0 || n == 1)
+		return n;
 
-    return sqrt_recursive(n, 1);
+	return sqrt_recursive(n, 1);
 }
