@@ -9,11 +9,11 @@ int _putchar(char c) {
 int is_digit(char *str) {
     while (*str) {
         if (*str < '0' || *str > '9') {
-            return 0;
+            return (0);
         }
         str++;
     }
-    return 1;
+    return (1);
 }
 
 int add_numbers(int argc, char *argv[]) {
@@ -22,22 +22,27 @@ int add_numbers(int argc, char *argv[]) {
     if (argc == 1) {
         _putchar('0');
         _putchar('\n');
-        return 0;
+        return (0);
     }
 
     for (int i = 1; i < argc; i++) {
         if (is_digit(argv[i])) {
             sum += atoi(argv[i]);
         } else {
-            printf("Error\n");
-            return 1;
+            _putchar('E');
+            _putchar('r');
+            _putchar('r');
+            _putchar('o');
+            _putchar('r');
+            _putchar('\n');
+            return (1);
         }
     }
 
     printf("%d\n", sum);
-    return 0;
+    return (0);
 }
 
 int main(int argc, char *argv[]) {
-    return add_numbers(argc, argv);
+    return (add_numbers(argc, argv));
 }
