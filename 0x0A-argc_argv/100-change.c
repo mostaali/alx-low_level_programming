@@ -1,49 +1,44 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
 
-int _putchar(char c) {
-    return write(1, &c, 1);
-}
+/**
+ * main - main function
+ * @argc: numbers of stuff added
+ * @argv: the things added
+ * Return: always 0 SUCCESS, or 1 if error
+ */
 
-int min_coins(int cents) {
-    int coins[] = {25, 10, 5, 2, 1};
-    int coin_count = 0;
+int main(int argc, char *argv[])
+{
+	int i, j;
 
-    if (cents <= 0) {
-        return 0;
-    }
+	if (argc != 2)
+	{
+		printf("Error\n");
+		return (1);
+	}
+	i = atoi(argv[1]);
+	if (i < 0)
+	{
+		printf("0\n");
+		return (0);
+	}
+	j = 0;
+	while (i > 0)
+	{
+		if (i >= 25)
+			i -= 25;
+		else if (i >= 10)
+			i -= 10;
+		else if (i >= 5)
+			i -= 5;
+		else if (i >= 2)
+			i -= 2;
+		else
+			i -= 1;
+		j++;
+	}
+	printf("%d\n", j);
 
-    for (int i = 0; i < 5; i++) {
-        while (cents >= coins[i]) {
-            cents -= coins[i];
-            coin_count++;
-        }
-    }
-
-    return coin_count;
-}
-
-int main(int argc, char *argv[]) {
-    if (argc != 2) {
-        _putchar('E');
-        _putchar('r');
-        _putchar('r');
-        _putchar('o');
-        _putchar('r');
-        _putchar('\n');
-        return 1;
-    }
-
-    int cents = atoi(argv[1]);
-
-    if (cents < 0) {
-        printf("0\n");
-        return 0;
-    }
-
-    int coins_needed = min_coins(cents);
-    printf("%d\n", coins_needed);
-
-    return 0;
+	return (0);
 }
