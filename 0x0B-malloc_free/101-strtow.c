@@ -1,95 +1,81 @@
+#include <stdio.h>
 #include <stdlib.h>
 
-int count_words(char *str);
-char **allocate_memory(int word_count);
-void free_memory(char **words, int word_count);
-void copy_words(char **words, char *str, int word_count);
-
-char **strtow(char *str)
-{
-    int word_count;
-    char **words;
-
-    if (str == NULL || *str == '\0')
-        return NULL;
-
-    word_count = count_words(str);
-    if (word_count == 0)
-        return NULL;
-
-    words = allocate_memory(word_count);
-    if (words == NULL)
-        return NULL;
-
-    copy_words(words, str, word_count);
-    return words;
+int is_space(char c) {
+    return c == ' ' || c == '\t' || c == '\n';
 }
 
-int count_words(char *str)
-{
+int count_words(char *str) {
     int count = 0;
-    int i;
+    int in_word = 0;
 
-    for (i = 0; str[i] != '\0'; i++)
-    {
-        if (str[i] != ' ' && (i == 0 || str[i - 1] == ' '))
+    for (int i = 0; str[i] != '\0'; i++) {
+        if (is_space(str[i])) {
+            in_word = 0;
+        } else if (!in_word) {
+            in_word = 1;
             count++;
+        }
     }
 
     return count;
 }
 
-char **allocate_memory(int word_count)
-{
-    char **words;
-    int i;
-
-    words = (char **)malloc(sizeof(char *) * (word_count + 1));
-    if (words == NULL)
-        return NULL;
-
-    for (i = 0; i < word_count; i++)
-    {
-        words[i] = NULL;
+char *strndup(const char *str, size_t n) {
+    char *copy = (char *)malloc(n + 1);
+    if (!copy) return NULL;
+    for (size_t i = 0; i < n; i++) {
+        copy[i] = str[i];
     }
-
-    return words;
+    copy[n] = '\0';
+    return copy;
 }
 
-void free_memory(char **words, int word_count)
-{
-    int i;
+char **strtow(char *str) {
+    if (str == NULL || *str == '\0') return NULL;
 
-    for (i = 0; i < word_count; i++)
-    {
-        free(words[i]);
-    }
-    free(words);
-}
+    int num_words = count_words(str);
+    if (num_words == 0) return NULL;
 
-void copy_words(char **words, char *str, int word_count)
-{
-    int i, j, k;
+    char **words = (char **)malloc((num_words + 1) * sizeof(char *));
+    if (words == NULL) return NULL;
 
-    for (i = 0, k = 0; str[i] != '\0'; i++)
-    {
-        if (str[i] != ' ' && (i == 0 || str[i - 1] == ' '))
-        {
-            for (j = i; str[j] != '\0' && str[j] != ' '; j++)
-                ;
-            words[k] = (char *)malloc(sizeof(char) * (j - i + 1));
+    int word_index = 0;
+    int in_word = 0;
+    int word_start = 0;
 
-            if (words[k] == NULL)
-            {
-                free_memory(words, word_count);
-                break;
+    for (int i = 0; str[i] != '\0'; i++) {
+        if (is_space(str[i])) {
+            if (in_word) {
+                words[word_index] = strndup(str + word_start, i - word_start);
+                if (words[word_index] == NULL) {
+                    for (int j = 0; j < word_index; j++) {
+                        free(words[j]);
+                    }
+                    free(words);
+                    return NULL;
+                }
+                word_index++;
+                in_word = 0;
             }
-
-            for (k = 0; i < j; i++, k++)
-                words[k][k] = str[i];
-            words[k][k] = '\0';
-            k++;
+        } else if (!in_word) {
+            word_start = i;
+            in_word = 1;
         }
     }
-    words[k] = NULL;
+
+    if (in_word) {
+        words[word_index] = strndup(str + word_start, strlen(str) - word_start);
+        if (words[word_index] == NULL) {
+            for (int j = 0; j <= word_index; j++) {
+                free(words[j]);
+            }
+            free(words);
+            return NULL;
+        }
+    }
+
+    words[num_words] = NULL;
+
+    return words;
 }
