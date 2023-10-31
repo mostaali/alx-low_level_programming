@@ -7,11 +7,17 @@ void copy_words(char **words, char *str, int word_count);
 
 char **strtow(char *str)
 {
-    int word_count = count_words(str);
+    int word_count;
+    char **words;
+
+    if (str == NULL)
+        return NULL;
+
+    word_count = count_words(str);
     if (word_count == 0)
         return NULL;
 
-    char **words = allocate_memory(word_count);
+    words = allocate_memory(word_count);
     if (words == NULL)
         return NULL;
 
@@ -21,15 +27,16 @@ char **strtow(char *str)
 
 int count_words(char *str)
 {
-    // Count the number of words in the string.
+    int count = 0;
     // Implement your counting logic here.
-    // Return the count.
+    return count;
 }
 
 char **allocate_memory(int word_count)
 {
+    char **words = NULL;
     // Allocate memory for the array of words.
-    // Return the allocated memory.
+    return words;
 }
 
 void free_memory(char **words, int word_count)
