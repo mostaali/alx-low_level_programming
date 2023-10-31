@@ -12,7 +12,7 @@ char *str_concat(char *s1, char *s2)
 	char *concatenated;
 	int length1, length2, i, j;
 
-	if (s1 == Null)
+	if (s1 == NULL)
 	s1 = "";
 	if (s2 == NULL)
 	s2 = "";
