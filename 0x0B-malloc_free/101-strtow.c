@@ -1,56 +1,44 @@
 #include <stdlib.h>
-#include <stdio.h>
 
-/**
- * strtow - Splits a string into words.
- * @str: The string to split.
- *
- * Return: A pointer to an array of strings (words), or NULL on failure.
- */
+int count_words(char *str);
+char **allocate_memory(int word_count);
+void free_memory(char **words, int word_count);
+void copy_words(char **words, char *str, int word_count);
+
 char **strtow(char *str)
 {
-	int i, j, k, word_count;
-	char **words;
+    int word_count = count_words(str);
+    if (word_count == 0)
+        return NULL;
 
-	if (str == NULL || *str == '\0')
-		return (NULL);
+    char **words = allocate_memory(word_count);
+    if (words == NULL)
+        return NULL;
 
-	for (i = 0, word_count = 0; str[i] != '\0'; i++)
-	{
-		if (str[i] != ' ' && (i == 0 || str[i - 1] == ' '))
-			word_count++;
-	}
+    copy_words(words, str, word_count);
+    return words;
+}
 
-	if (word_count == 0)
-		return (NULL);
+int count_words(char *str)
+{
+    // Count the number of words in the string.
+    // Implement your counting logic here.
+    // Return the count.
+}
 
-	words = (char **)malloc(sizeof(char *) * (word_count + 1));
+char **allocate_memory(int word_count)
+{
+    // Allocate memory for the array of words.
+    // Return the allocated memory.
+}
 
-	if (words == NULL)
-		return (NULL);
+void free_memory(char **words, int word_count)
+{
+    // Free the memory for the words array.
+}
 
-	for (i = 0, word_count = 0; str[i] != '\0'; i++)
-	{
-		if (str[i] != ' ' && (i == 0 || str[i - 1] == ' '))
-		{
-			for (j = i; str[j] != '\0' && str[j] != ' '; j++)
-				;
-			words[word_count] = (char *)malloc(sizeof(char) * (j - i + 1));
-
-			if (words[word_count] == NULL)
-			{
-				while (word_count > 0)
-					free(words[--word_count]);
-				free(words);
-				return (NULL);
-			}
-
-			for (k = 0; i < j; i++, k++)
-				words[word_count][k] = str[i];
-			words[word_count][k] = '\0';
-			word_count++;
-		}
-	}
-	words[word_count] = NULL;
-	return (words);
+void copy_words(char **words, char *str, int word_count)
+{
+    // Copy words from the string into the words array.
+    // Implement the copying logic.
 }
