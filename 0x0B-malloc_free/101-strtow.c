@@ -8,6 +8,7 @@ void copy_words(char **words, char *str, int word_count);
 char **strtow(char *str)
 {
     int word_count;
+    char **words;
 
     if (str == NULL || *str == '\0')
         return NULL;
@@ -16,7 +17,7 @@ char **strtow(char *str)
     if (word_count == 0)
         return NULL;
 
-    char **words = allocate_memory(word_count);
+    words = allocate_memory(word_count);
     if (words == NULL)
         return NULL;
 
