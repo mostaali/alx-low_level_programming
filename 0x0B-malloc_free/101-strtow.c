@@ -1,81 +1,56 @@
-#include <stdio.h>
 #include <stdlib.h>
+#include <stdio.h>
 
-int is_space(char c) {
-    return c == ' ' || c == '\t' || c == '\n';
-}
+/**
+ * strtow - Splits a string into words.
+ * @str: The string to split.
+ *
+ * Return: A pointer to an array of strings (words), or NULL on failure.
+ */
+char **strtow(char *str)
+{
+	int i, j, k, word_count;
+	char **words;
 
-int count_words(char *str) {
-    int count = 0;
-    int in_word = 0;
+	if (str == NULL || *str == '\0')
+		return (NULL);
 
-    for (int i = 0; str[i] != '\0'; i++) {
-        if (is_space(str[i])) {
-            in_word = 0;
-        } else if (!in_word) {
-            in_word = 1;
-            count++;
-        }
-    }
+	for (i = 0, word_count = 0; str[i] != '\0'; i++)
+	{
+		if (str[i] != ' ' && (i == 0 || str[i - 1] == ' '))
+			word_count++;
+	}
 
-    return count;
-}
+	if (word_count == 0)
+		return (NULL);
 
-char *strndup(const char *str, size_t n) {
-    char *copy = (char *)malloc(n + 1);
-    if (!copy) return NULL;
-    for (size_t i = 0; i < n; i++) {
-        copy[i] = str[i];
-    }
-    copy[n] = '\0';
-    return copy;
-}
+	words = (char **)malloc(sizeof(char *) * (word_count + 1));
 
-char **strtow(char *str) {
-    if (str == NULL || *str == '\0') return NULL;
+	if (words == NULL)
+		return (NULL);
 
-    int num_words = count_words(str);
-    if (num_words == 0) return NULL;
+	for (i = 0, word_count = 0; str[i] != '\0'; i++)
+	{
+		if (str[i] != ' ' && (i == 0 || str[i - 1] == ' '))
+		{
+			for (j = i; str[j] != '\0' && str[j] != ' '; j++)
+				;
+			words[word_count] = (char *)malloc(sizeof(char) * (j - i + 1));
 
-    char **words = (char **)malloc((num_words + 1) * sizeof(char *));
-    if (words == NULL) return NULL;
+			if (words[word_count] == NULL)
+			{
+				while (word_count > 0)
+					free(words[--word_count]);
+				free(words);
+				return (NULL);
+			}
 
-    int word_index = 0;
-    int in_word = 0;
-    int word_start = 0;
-
-    for (int i = 0; str[i] != '\0'; i++) {
-        if (is_space(str[i])) {
-            if (in_word) {
-                words[word_index] = strndup(str + word_start, i - word_start);
-                if (words[word_index] == NULL) {
-                    for (int j = 0; j < word_index; j++) {
-                        free(words[j]);
-                    }
-                    free(words);
-                    return NULL;
-                }
-                word_index++;
-                in_word = 0;
-            }
-        } else if (!in_word) {
-            word_start = i;
-            in_word = 1;
-        }
-    }
-
-    if (in_word) {
-        words[word_index] = strndup(str + word_start, strlen(str) - word_start);
-        if (words[word_index] == NULL) {
-            for (int j = 0; j <= word_index; j++) {
-                free(words[j]);
-            }
-            free(words);
-            return NULL;
-        }
-    }
-
-    words[num_words] = NULL;
-
-    return words;
+			for (k = 0; i < j; i++, k++)
+				words[word_count][k] = str[i];
+			words[word_count][k] = '\0';
+			word_count++;
+		}
+	}
+	words[word_count] = NULL;
+	return (words);
 }
